@@ -29,9 +29,11 @@
 		    game.load.image('ground', 'assets/platform.png');
 		    game.load.image('star', 'assets/star.png');
 		    game.load.spritesheet('dude', 'assets/kartoffelhovedmand.png', 32, 48);
+		    game.load.spritesheet('enemy-saw', 'assets/enemy-saw.png', 72, 72);
 		}
 
 		var platforms;
+		var saws;
 
 		function create() {
 
@@ -44,14 +46,10 @@
 
 		    //  The platforms group contains the ground and the 2 ledges we can jump on
 		    platforms = game.add.group();
-
-		    //  We will enable physics for any object that is created in this group
 		    platforms.enableBody = true;
 
 		    // Here we create the ground.
 		    var ground = platforms.create(0, game.world.height - 64, 'ground');
-
-		    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		    ground.scale.setTo(2, 2);
 
 		    //  This stops it from falling away when you jump on it
@@ -65,11 +63,19 @@
 
 		 	createPlayer ();
 
-		    stars = game.add.group();
+		 	saws = game.add.group();
+		 	saws.enableBody = true;
 
+	    	var saw1 = game.add.sprite(150, 150, 'enemy-saw');
+    		saws.add(saw1);
+
+	    	saw1.animations.add('spin');
+	    	saw1.animations.play('spin', 25, true);
+
+
+		    stars = game.add.group();
 		    stars.enableBody = true;
 
-		    //  Here we'll create 12 of them evenly spaced apart
 		    for (var i = 0; i < 12; i++)
 		    {
 		        //  Create a star inside of the 'stars' group
@@ -97,10 +103,8 @@
 
 		    //  Collide the player and the stars with the platforms
 		    game.physics.arcade.collide(player, platforms);
-
 		    game.physics.arcade.collide(stars, platforms);
-
-		    game.physics.arcade.overlap(player, stars, killPlayer, null, this);
+		    game.physics.arcade.overlap(player, saws, killPlayer, null, this);
 
 		cursors = game.input.keyboard.createCursorKeys();
 
@@ -144,17 +148,6 @@
 		}
 
 
-		function collectStar (player, star) {
-
-		    // Removes the star from the screen
-		    star.kill();
-
-		    //  Add and update the score
-		    score += 10;
-		    scoreText.text = 'Score: ' + score;
-
-		}
-
 		function createPlayer () {
 
 			// The player and its settings
@@ -174,16 +167,14 @@
 
 		}
 
-		function killPlayer (player, star) {
+		function killPlayer (player, saw) {
 
 			player.kill();
-
 			score++;
-
 			scoreText.text = 'Deaths= ' + score;
-
 			createPlayer ();
 		}
+
 		</script>
 
 
