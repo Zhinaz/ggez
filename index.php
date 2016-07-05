@@ -84,12 +84,41 @@
 		 	saws = game.add.group();
 		 	saws.enableBody = true;
 
-	    	var saw1 = game.add.sprite(150, 150, 'enemy-saw');
+	    	var saw1 = game.add.sprite(162, 540, 'enemy-saw');
     		saws.add(saw1);
 
 	    	saw1.animations.add('spin');
 	    	saw1.animations.play('spin', 25, true);
 
+			var saw2 = game.add.sprite(225, 540, 'enemy-saw');
+    		saws.add(saw2);
+
+	    	saw2.animations.add('spin');
+	    	saw2.animations.play('spin', 25, true);
+
+	    	var saw3 = game.add.sprite(100, 540, 'enemy-saw');
+    		saws.add(saw3);
+
+	    	saw3.animations.add('spin');
+	    	saw3.animations.play('spin', 25, true);
+
+			var saw4 = game.add.sprite(380, 540, 'enemy-saw');
+    		saws.add(saw4);
+
+	    	saw4.animations.add('spin');
+	    	saw4.animations.play('spin', 25, true);
+
+	    	var saw5 = game.add.sprite(450, 540, 'enemy-saw');
+    		saws.add(saw5);
+
+	    	saw5.animations.add('spin');
+	    	saw5.animations.play('spin', 25, true);
+
+	    	var saw6 = game.add.sprite(522, 540, 'enemy-saw');
+    		saws.add(saw6);
+
+	    	saw6.animations.add('spin');
+	    	saw6.animations.play('spin', 25, true);
 
 		    stars = game.add.group();
 		    stars.enableBody = true;
