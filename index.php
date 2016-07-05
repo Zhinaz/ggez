@@ -71,6 +71,7 @@
 		    stars = game.add.group();
 
 		    stars.enableBody = true;
+		    stars.body.collideWorldBounds = true;
 
 		    //  Here we'll create 12 of them evenly spaced apart
 		    for (var i = 0; i < 12; i++)
