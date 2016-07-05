@@ -49,7 +49,13 @@
 		    platforms.enableBody = true;
 
 		    // Here we create the ground.
+<<<<<<< HEAD
+		    var ground = platforms.create(0, game.world.height - 64, 'ground');
+=======
 		    var ground = platforms.create(600, game.world.height - 64, 'ground');
+
+		    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+>>>>>>> 367fd76afff7a5ea23d25e9372322ecb9fde8bf9
 		    ground.scale.setTo(2, 2);
 
 		    //  This stops it from falling away when you jump on it

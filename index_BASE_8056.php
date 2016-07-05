@@ -29,11 +29,9 @@
 		    game.load.image('ground', 'assets/platform.png');
 		    game.load.image('star', 'assets/star.png');
 		    game.load.spritesheet('dude', 'assets/kartoffelhovedmand.png', 32, 48);
-		    game.load.spritesheet('enemy-saw', 'assets/enemy-saw.png', 72, 72);
 		}
 
 		var platforms;
-		var saws;
 
 		function create() {
 
@@ -46,10 +44,14 @@
 
 		    //  The platforms group contains the ground and the 2 ledges we can jump on
 		    platforms = game.add.group();
+
+		    //  We will enable physics for any object that is created in this group
 		    platforms.enableBody = true;
 
 		    // Here we create the ground.
-		    var ground = platforms.create(600, game.world.height - 64, 'ground');
+		    var ground = platforms.create(0, game.world.height - 64, 'ground');
+
+		    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 		    ground.scale.setTo(2, 2);
 
 		    //  This stops it from falling away when you jump on it
@@ -61,39 +63,13 @@
 
 		    ledge2.scale.setTo(2, 1);
 
-		    ledge3 = platforms.create(300, 540, 'ground');
-
-		    ledge3.body.immovable = true;
-
-		    ledge3.scale.setTo(0.2, 1.9);
-
-		    ledge4 = platforms.create(-300, 540, 'ground');
-
-		    ledge4.body.immovable = true;
-
-		    ledge4.scale.setTo(1, 1.9);
-
-		    ledge5 = platforms.create(350, 187, 'ground');
-
-		    ledge5.body.immovable = true;
-
-		    ledge5.scale.setTo(0.2, 2.1);
-
 		 	createPlayer ();
 
-		 	saws = game.add.group();
-		 	saws.enableBody = true;
-
-	    	var saw1 = game.add.sprite(150, 150, 'enemy-saw');
-    		saws.add(saw1);
-
-	    	saw1.animations.add('spin');
-	    	saw1.animations.play('spin', 25, true);
-
-
 		    stars = game.add.group();
+
 		    stars.enableBody = true;
 
+		    //  Here we'll create 12 of them evenly spaced apart
 		    for (var i = 0; i < 12; i++)
 		    {
 		        //  Create a star inside of the 'stars' group
@@ -111,7 +87,7 @@
 
 		}
 
-		var movementSpeed = 180;
+		var movementSpeed = 200;
 
 		var score = 0;
 		var scoreText;
@@ -121,8 +97,10 @@
 
 		    //  Collide the player and the stars with the platforms
 		    game.physics.arcade.collide(player, platforms);
+
 		    game.physics.arcade.collide(stars, platforms);
-		    game.physics.arcade.overlap(player, saws, killPlayer, null, this);
+
+		    game.physics.arcade.overlap(player, stars, killPlayer, null, this);
 
 		cursors = game.input.keyboard.createCursorKeys();
 
@@ -154,7 +132,7 @@
 		    //  Allow the player to jump if they are touching the ground.
 		    if (cursors.up.isDown && player.body.touching.down)
 		    {
-		        player.body.velocity.y = -250;
+		        player.body.velocity.y = -150;
 		    }
 
 			else if (cursors.down.isDown){
@@ -166,6 +144,17 @@
 		}
 
 
+		function collectStar (player, star) {
+
+		    // Removes the star from the screen
+		    star.kill();
+
+		    //  Add and update the score
+		    score += 10;
+		    scoreText.text = 'Score: ' + score;
+
+		}
+
 		function createPlayer () {
 
 			// The player and its settings
@@ -176,7 +165,7 @@
 
 		    //  Player physics properties. Give the little guy a slight bounce.
 		    player.body.bounce.y = 0;
-		    player.body.gravity.y = 400;
+		    player.body.gravity.y = 300;
 		    player.body.collideWorldBounds = true;
 
 		    //  Our two animations, walking left and right.
@@ -185,14 +174,16 @@
 
 		}
 
-		function killPlayer (player, saw) {
+		function killPlayer (player, star) {
 
 			player.kill();
+
 			score++;
+
 			scoreText.text = 'Deaths= ' + score;
+
 			createPlayer ();
 		}
-
 		</script>
 
 

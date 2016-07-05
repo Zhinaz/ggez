@@ -49,7 +49,7 @@
 		    platforms.enableBody = true;
 
 		    // Here we create the ground.
-		    var ground = platforms.create(600, game.world.height - 64, 'ground');
+		    var ground = platforms.create(0, game.world.height - 64, 'ground');
 		    ground.scale.setTo(2, 2);
 
 		    //  This stops it from falling away when you jump on it
@@ -60,24 +60,6 @@
 		    ledge2.body.immovable = true;
 
 		    ledge2.scale.setTo(2, 1);
-
-		    ledge3 = platforms.create(300, 540, 'ground');
-
-		    ledge3.body.immovable = true;
-
-		    ledge3.scale.setTo(0.2, 1.9);
-
-		    ledge4 = platforms.create(-300, 540, 'ground');
-
-		    ledge4.body.immovable = true;
-
-		    ledge4.scale.setTo(1, 1.9);
-
-		    ledge5 = platforms.create(350, 187, 'ground');
-
-		    ledge5.body.immovable = true;
-
-		    ledge5.scale.setTo(0.2, 2.1);
 
 		 	createPlayer ();
 
@@ -111,7 +93,7 @@
 
 		}
 
-		var movementSpeed = 180;
+		var movementSpeed = 200;
 
 		var score = 0;
 		var scoreText;
@@ -154,7 +136,7 @@
 		    //  Allow the player to jump if they are touching the ground.
 		    if (cursors.up.isDown && player.body.touching.down)
 		    {
-		        player.body.velocity.y = -250;
+		        player.body.velocity.y = -150;
 		    }
 
 			else if (cursors.down.isDown){
@@ -176,7 +158,7 @@
 
 		    //  Player physics properties. Give the little guy a slight bounce.
 		    player.body.bounce.y = 0;
-		    player.body.gravity.y = 400;
+		    player.body.gravity.y = 300;
 		    player.body.collideWorldBounds = true;
 
 		    //  Our two animations, walking left and right.
