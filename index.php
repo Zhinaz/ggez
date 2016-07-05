@@ -57,14 +57,11 @@
 		    //  This stops it from falling away when you jump on it
 		    ground.body.immovable = true;
 
-		    //  Now let's create two ledges
-		    var ledge = platforms.create(400, 400, 'ground');
+		    var ledge2 = platforms.create(-100, 250, 'ground');
 
-		    ledge.body.immovable = true;
+		    ledge2.body.immovable = true;
 
-		    ledge = platforms.create(-150, 250, 'ground');
-
-		    ledge.body.immovable = true;
+		    ledge2.scale.setTo(2, 1);
 
 		 	createPlayer ();
 
@@ -133,13 +130,13 @@
 		    }
 
 		    //  Allow the player to jump if they are touching the ground.
-		    if (cursors.up.isDown)
+		    if (cursors.up.isDown && player.body.touching.down)
 		    {
-		        player.body.velocity.y = -350;
+		        player.body.velocity.y = -150;
 		    }
 
 			else if (cursors.down.isDown){
-				player.body.velocity.y = 350;
+				player.body.velocity.y = 150;
 			}
 		   
 
@@ -161,13 +158,13 @@
 		function createPlayer () {
 
 			// The player and its settings
-		    player = game.add.sprite(32, game.world.height - 150, 'dude');
+		    player = game.add.sprite(32, game.world.height - 400, 'dude');
 
 		    //  We need to enable physics on the player
 		    game.physics.arcade.enable(player);
 
 		    //  Player physics properties. Give the little guy a slight bounce.
-		    player.body.bounce.y = 0.4;
+		    player.body.bounce.y = 0;
 		    player.body.gravity.y = 300;
 		    player.body.collideWorldBounds = true;
 
