@@ -71,7 +71,6 @@
 		    stars = game.add.group();
 
 		    stars.enableBody = true;
-		    stars.body.collideWorldBounds = true;
 
 		    //  Here we'll create 12 of them evenly spaced apart
 		    for (var i = 0; i < 12; i++)
@@ -81,9 +80,10 @@
 
 		        //  Let gravity do its thing
 		        star.body.gravity.y = 600;
-
+		        star.body.collideWorldBounds = true;
+		        
 		        //  This just gives each star a slightly random bounce value
-		        star.body.bounce.y = 1 + Math.random() * 0.2;
+		        star.body.bounce.y = 1; // + Math.random() * 0.2
 		    }
 
 		    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
